@@ -7,9 +7,9 @@ using namespace std;
 
 struct node{
     string info;
-    node* left = NULL;
-    node* right = NULL;
-    node* parent = NULL;
+    node* left;
+    node* right;
+    node* parent;
 };
 
 class Pages{
@@ -32,7 +32,7 @@ class Pages{
     private:
         node* origin; //user built root
         node* current; //current location in tree
-        node* demoRoot = new node; //root of the prebuilt tree;
+        node* demoRoot; //root of the prebuilt tree;
         node* buildLeft(node* parent);
         node* buildRight(node* parent);
 };

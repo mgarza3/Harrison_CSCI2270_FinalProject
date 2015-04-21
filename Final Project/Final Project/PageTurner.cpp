@@ -31,51 +31,39 @@ void Pages::printMain()
         {
             cout << "Goodbye!" << endl;
             command = "quit";
-            return;
         }
     }
 }
 void printBuild();
 void Pages::printPlay()
 {
-    string response;
-    while(response != "Quit")
+    string command;
+    while(command != "Quit")
     {
         cout << "======Main Menu=====" << endl;
         cout << "1. Choice A:" << current->left->info << endl;
         cout << "2. Choice B:" << current->right->info << endl;
         cout << "3. quit" << endl;
-        cin >> response;
+        cin >> command;
 
-        if(response == "1")
+        if(command == "1")
         {
             choiceA();
         }
-        else if(response == "2")
+        else if(command == "2")
         {
             choiceB();
-        }
-        else if(response == "3")
-        {
-            response = "Quit";
-            return;
         }
     }
 }
 void checkPos(node *check);
 void Pages::choiceA()
 {
-    if(current->left != NULL)
-        current = current->left;
-    else
-        cout << "You made a faulty decision. Goodbye!" << endl;
+    current = current->left;
 }
 void Pages::choiceB()
 {
-    if(current->right !=NULL)
-        current = current->right;
-    else
-        cout << "You made a faulty decision. Goodbye!" << endl;
+    current = current->right;
 }
 void instruction();
 void buildLeft();
@@ -83,35 +71,26 @@ void buildRight();
 void returnMain();
 void Pages::playPrebuild()
 {
-    cout << "WELCOME";
-    node * root = new node;
+    node * root = demoRoot;
     root->info = "Welcome to Win or don't Win! Your goal is to find the treasure! Choose a path!";
-    demoRoot = root;
     current = root;
-    node * left1 = new node;
-    left1->info = "Venture down towards the ocean";
-    node * left2 = new node;
-    left2->info = "Walk down the beach";
-    node * left3 = new node;
-    left3->info = "Cross a safe looking bridge";
-    node * left4 = new node;
-    left4->info = "Enter a nearby cave";
-    node * left5 = new node;
-    left5->info = "Swim out to boat"
-    node * left6 = new node;
-    left6->info = "use the handrail";
-    node * left7 = new node;
-    left7->info = "You begin to fall off the bridge! Grab the rope."
-    node * left8 = new node;
-    node * right1 = new node;
-    right1->info = "Venture down towards the forest";
-    node * right2 = new node;
-    node * right3 = new node;
-    node * right4 = new node;
-    node * right5 = new node;
-    right5->info = "Dive into the ocean";
-    node * right6 = new node;
-    node * right7 = new node;
+    node * left1;
+    left1->info = "Venture down towards the Ocean";
+    node * left2;
+    left2->info = "Venture down towards the forest";
+    node * left3;
+    node * left4;
+    node * left5;
+    node * left6;
+    node * left7;
+    node * left8;
+    node * right1;
+    node * right2;
+    node * right3;
+    node * right4;
+    node * right5;
+    node * right6;
+    node * right7;
 
     root->left = left1;
     root->right = right1;
@@ -127,15 +106,6 @@ void Pages::playPrebuild()
     left3->right = right6;
     right3->left = left7;
     right3->right = right7;
-    /*left4->left = NULL;
-    left4->right = NULL;
-    right4->left = NULL;
-    right4->right = NULL;
-    left5->left=NULL;
-    left5->right = NULL;
-    right5->left = NULL;
-    right5->right = NULL;
-    left6->left =*/
 
     printPlay();
 
