@@ -7,5 +7,4 @@ int main()
 {
     Pages classObj;
     classObj.printMain();
-
 }

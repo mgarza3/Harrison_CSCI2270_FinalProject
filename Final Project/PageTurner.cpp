@@ -9,10 +9,10 @@ void Pages::printMain()
     while(command != "Quit")
     {
         cout << "======Main Menu=====" << endl;
-        cout << "1. Play Pre-Built game" << endl;
+        cout << "1. Play Pre-Built Game" << endl;
         cout << "2. Begin Building" << endl;
         cout << "3. Play Custom" <<	endl;
-        cout << "4. quit" << endl;
+        cout << "4. Quit" << endl;
         cin >> command;
 
         if(command == "1")
@@ -21,7 +21,7 @@ void Pages::printMain()
         }
         if(command == "2")
         {
-
+            printBuild();
         }
         if(command == "3")
         {
@@ -30,35 +30,76 @@ void Pages::printMain()
         if(command == "4")
         {
             cout << "Goodbye!" << endl;
-            command = "quit";
+            command = "Quit";
             return;
         }
     }
 }
-void printBuild();
+void Pages::printBuild()
+{
+    string choice;
+    while(choice != "Quit")
+    {
+        cout << "======Build Menu=====" << endl;
+        cout << "0. Instructions" << endl;
+        cout << "1. Go Left" << endl;
+        cout << "2. Go Right" << endl;
+        cout << "3. Go Up One Level" <<	endl;
+        cout << "4. Return to Start" << endl;
+        cout << "5. Build Left" << endl;
+        cout << "6. Build Right" << endl;
+        cout << "7. Check Current Position" << endl;
+        cout << "8. Return to Main Menu" << endl;
+        cin >> choice;
+
+        if(choice == "0")
+        {
+            instruction();
+        }
+        if(choice == "1")
+        {
+            playPrebuild();
+        }
+        if(choice == "2")
+        {
+            printBuild();
+        }
+        if(choice == "3")
+        {
+
+        }
+        if(choice == "8")
+        {
+            return;
+        }
+    }
+}
 void Pages::printPlay()
 {
     string response;
     while(response != "Quit")
     {
-        cout << "======Main Menu=====" << endl;
-        cout << "1. Choice A:" << current->left->info << endl;
-        cout << "2. Choice B:" << current->right->info << endl;
-        cout << "3. quit" << endl;
-        cin >> response;
+        if(current != NULL)
+        {
+            cout << "======Game Menu=====" << endl;
+            cout << "1. Choice A:" << current->left->info << endl;
+            cout << "2. Choice B:" << current->right->info << endl;
+            cout << "3. quit" << endl;
+            cin >> response;
 
-        if(response == "1")
-        {
-            choiceA();
-        }
-        else if(response == "2")
-        {
-            choiceB();
-        }
-        else if(response == "3")
-        {
-            response = "Quit";
-            return;
+            if(response == "1")
+            {
+                choiceA();
+            }
+            else if(response == "2")
+            {
+                choiceB();
+            }
+            else if(response == "3")
+            {
+                response = "Quit";
+                return;
+            }
         }
     }
 }
@@ -68,7 +109,9 @@ void Pages::choiceA()
     if(current->left != NULL)
         current = current->left;
     else
+    {
         cout << "You made a faulty decision. Goodbye!" << endl;
+    }
 }
 void Pages::choiceB()
 {
@@ -77,13 +120,64 @@ void Pages::choiceB()
     else
         cout << "You made a faulty decision. Goodbye!" << endl;
 }
-void instruction();
+void Pages::instruction()
+{
+    cout << "This is the build menu. By selecting these different options you can construct  your own page turner. The page turner is constructed similar to a Binary Tree" << endl;
+    cout << "Is there anything specific I can help you with?" << endl;
+    string helpChoice;
+    while(helpChoice != "Quit")
+    {
+        cout << "======Help Menu=====" << endl;
+        cout << "1. Explain: Go Left" << endl;
+        cout << "2. Explain: Go Right" << endl;
+        cout << "3. Explain: Go Up One Level" <<	endl;
+        cout << "4. Explain: Return to Start" << endl;
+        cout << "5. Explain: Build Left" << endl;
+        cout << "6. Explain: Build Right" << endl;
+        cout << "7. Explain: Check Current Position" << endl;
+        cout << "8. Return to Build Menu" << endl;
+        cin >> helpChoice;
+
+        if(helpChoice == "1")
+        {
+            cout << "\n1. Go Left \nThis option moves your position in the tree/story\nto the next option on the left side\n" << endl;
+        }
+        if(helpChoice == "2")
+        {
+            cout << "\n2. Go Right \nThis option moves your position in the tree/story\nto the next option on the  right side\n" << endl;
+        }
+        if(helpChoice == "3")
+        {
+            cout << "\n3. Go Up One Level\nThis option moves your position in the tree/story back to the \nprevious option or parent node\n" << endl;
+        }
+        if(helpChoice == "4")
+        {
+            cout << "\n4. Return to Start \nThis option brings your position back the beginning of the tree/story.\n" << endl;
+        }
+        if(helpChoice == "5")
+        {
+            cout << "\n5. Build Left\nThis option allows you to create the next option of the story and place it\non the left side of your current position." << endl;
+        }
+        if(helpChoice == "6")
+        {
+            cout << "\n6. Build right\nThis option allows you to create the next option of the story and place it\non the right side of your current position." << endl;
+        }
+        if(helpChoice == "7")
+        {
+            cout << "\n7. Check Current Position\nThis option will display where your current position is in the story/tree\nby printing the node your on along with its parent and children.\n" << endl;
+        }
+        if(helpChoice == "8")
+        {
+            return;
+        }
+    }
+}
 void buildLeft();
 void buildRight();
 void returnMain();
 void Pages::playPrebuild()
 {
-    cout << "WELCOME";
+    //cout << "WELCOME";
     node * root = new node;
     root->info = "Welcome to Win or don't Win! Your goal is to find the treasure! Choose a path!";
     demoRoot = root;
@@ -97,21 +191,25 @@ void Pages::playPrebuild()
     node * left4 = new node;
     left4->info = "Enter a nearby cave";
     node * left5 = new node;
-    left5->info = "Swim out to boat"
+    left5->info = "Swim out to boat";
     node * left6 = new node;
     left6->info = "use the handrail";
     node * left7 = new node;
-    left7->info = "You begin to fall off the bridge! Grab the rope."
-    node * left8 = new node;
+    left7->info = "You begin to fall off the bridge! Grab the rope.";
     node * right1 = new node;
     right1->info = "Venture down towards the forest";
     node * right2 = new node;
+    right2->info = "Walk down a nearby peer";
     node * right3 = new node;
+    right3->info = "Cross a rickety looking bridge";
     node * right4 = new node;
+    right4->info = "Climb up a nearby rock structure";
     node * right5 = new node;
     right5->info = "Dive into the ocean";
     node * right6 = new node;
+    right6->info = "Don't use handrail";
     node * right7 = new node;
+    right7->info = "Grab a rock ledge";
 
     root->left = left1;
     root->right = right1;
@@ -127,7 +225,7 @@ void Pages::playPrebuild()
     left3->right = right6;
     right3->left = left7;
     right3->right = right7;
-    /*left4->left = NULL;
+    left4->left = NULL;
     left4->right = NULL;
     right4->left = NULL;
     right4->right = NULL;
@@ -135,7 +233,13 @@ void Pages::playPrebuild()
     left5->right = NULL;
     right5->left = NULL;
     right5->right = NULL;
-    left6->left =*/
+    left6->left = NULL;
+    right6->left = NULL;
+    right6->right = NULL;
+    left7->left = NULL;
+    left7->right = NULL;
+    right7->left = NULL;
+    right7->right = NULL;
 
     printPlay();
 
