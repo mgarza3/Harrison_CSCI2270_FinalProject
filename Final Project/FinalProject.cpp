@@ -5,6 +5,8 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    Pages P;
+    P.printMain();
+    //cout << "Hello world!" << endl;
     return 0;
 }

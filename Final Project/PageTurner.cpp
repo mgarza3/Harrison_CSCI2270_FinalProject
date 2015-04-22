@@ -1,10 +1,21 @@
 #include "PageTurner.h"
 #include <iostream>
+#include <sstream>
+#include <fstream>
 
 using namespace std;
 
-void Pages::printMain()
-{
+Pages::Pages(){
+    origin = NULL;
+    currentbuild = origin;
+    current = demoRoot;
+}
+
+Pages::~Pages(){
+
+}
+
+void Pages::printMain(){
     string command;
     while(command != "Quit")
     {
@@ -35,8 +46,8 @@ void Pages::printMain()
         }
     }
 }
-void Pages::printBuild()
-{
+
+void Pages::printBuild(){
     string choice;
     while(choice != "Quit")
     {
@@ -58,15 +69,31 @@ void Pages::printBuild()
         }
         if(choice == "1")
         {
-            playPrebuild();
+            goLeft();
         }
         if(choice == "2")
         {
-            printBuild();
+            goRight();
         }
         if(choice == "3")
         {
 
+        }
+        if(choice == "4")
+        {
+
+        }
+        if(choice == "5")
+        {
+            buildLeft();
+        }
+        if(choice == "6")
+        {
+            buildRight();
+        }
+        if(choice == "7")
+        {
+            checkPos();
         }
         if(choice == "8")
         {
@@ -74,8 +101,10 @@ void Pages::printBuild()
         }
     }
 }
-void Pages::printPlay()
-{
+
+void Pages::printPlay(){
+
+
     string response;
     while(response != "Quit")
     {
@@ -103,25 +132,97 @@ void Pages::printPlay()
         }
     }
 }
-void checkPos(node *check);
-void Pages::choiceA()
-{
+
+void Pages::printCustomGameMenu(){
+
+    string answer;
+    while(answer != "Quit")
+    {
+        if(current != NULL)
+        {
+            cout << "======Game Menu=====" << endl;
+            cout << "1. Choice A:" << currentbuild->left->info << endl;
+            cout << "2. Choice B:" << currentbuild->right->info << endl;
+            cout << "3. quit" << endl;
+            cin >> answer;
+
+            if(answer == "1")
+            {
+                choiceA();
+            }
+            else if(answer == "2")
+            {
+                choiceB();
+            }
+            else if(answer == "3")
+            {
+                answer = "Quit";
+                return;
+            }
+        }
+    }
+
+}
+
+void Pages::customChoiceA(){
+    if(currentbuild->left != NULL)
+        currentbuild = currentbuild->left;
+    else
+    {
+        cout << "GAME OVER!" << endl;
+        printMain();
+    }
+}
+
+void Pages::customChoiceB(){
+    if(currentbuild->right != NULL)
+        currentbuild = currentbuild->right;
+    else
+    {
+        cout << "GAME OVER!" << endl;
+        printMain();
+    }
+}
+
+void Pages::checkPos(){
+    if(currentbuild == NULL)
+        return;
+    cout<<"Current Location:"<<currentbuild->info<<endl;
+    if(currentbuild->parent != NULL)
+        cout<<"One level up is:"<<currentbuild->parent->info<<endl;
+    else{
+        cout<<"You are at the origin of the story"<<endl;
+    }
+    if(currentbuild->left != NULL)
+        cout<<"Option A is:"<<current->left->info<<endl;
+    else
+        cout<<"There is no option A."<<endl;
+    if(currentbuild->right != NULL)
+        cout<<"Option B is:"<<currentbuild->right->info<<endl;
+    else
+        cout<<"There is no option B."<<endl;
+}
+
+void Pages::choiceA(){
     if(current->left != NULL)
         current = current->left;
     else
     {
-        cout << "You made a faulty decision. Goodbye!" << endl;
+        cout << "GAME OVER!" << endl;
+        printMain();
     }
 }
-void Pages::choiceB()
-{
+
+void Pages::choiceB(){
     if(current->right !=NULL)
         current = current->right;
-    else
-        cout << "You made a faulty decision. Goodbye!" << endl;
+    else{
+        cout << "GAME OVER!" << endl;
+        printMain();
+    }
 }
-void Pages::instruction()
-{
+
+void Pages::instruction(){
     cout << "This is the build menu. By selecting these different options you can construct  your own page turner. The page turner is constructed similar to a Binary Tree" << endl;
     cout << "Is there anything specific I can help you with?" << endl;
     string helpChoice;
@@ -172,11 +273,50 @@ void Pages::instruction()
         }
     }
 }
-void buildLeft();
-void buildRight();
+
+void Pages::buildLeft(){
+    cout<<"Enter choice for option A:"<<endl;
+    string data;
+    cin.ignore(1000, '\n');
+    getline(cin, data);
+    node* New = new node;
+    New->info = data;
+    if(currentbuild == origin && origin == NULL){
+        origin = New;
+        currentbuild = New;
+        return;
+    }
+    else if(currentbuild->left != NULL){
+        cout<<"An option already exists here"<<endl;
+        return;
+    }
+    New->parent = currentbuild;
+    currentbuild->left = New;
+}
+
+void Pages::buildRight(){
+    cout<<"Enter choice for option B:"<<endl;
+    string data;
+    cin.ignore(1000, '\n');
+    getline(cin, data);
+    node* New = new node;
+    New->info = data;
+    if(currentbuild == origin && origin == NULL){
+        origin = New;
+        currentbuild = New;
+        return;
+    }
+    else if(currentbuild->right != NULL){
+        cout<<"An option already exists here"<<endl;
+        return;
+    }
+    New->parent = currentbuild;
+    currentbuild->right = New;
+}
+
 void returnMain();
-void Pages::playPrebuild()
-{
+
+void Pages::playPrebuild(){
     //cout << "WELCOME";
     node * root = new node;
     root->info = "Welcome to Win or don't Win! Your goal is to find the treasure! Choose a path!";
@@ -225,7 +365,7 @@ void Pages::playPrebuild()
     left3->right = right6;
     right3->left = left7;
     right3->right = right7;
-    left4->left = NULL;
+    /*left4->left = NULL;
     left4->right = NULL;
     right4->left = NULL;
     right4->right = NULL;
@@ -239,12 +379,32 @@ void Pages::playPrebuild()
     left7->left = NULL;
     left7->right = NULL;
     right7->left = NULL;
-    right7->right = NULL;
+    right7->right = NULL;*/
 
     printPlay();
 
 }
 
 void beginBuild();
-void playCustom();
+
+void Pages::playCustom(){
+
+}
+
 void printGame();
+
+void Pages::goLeft(){
+    if(currentbuild->left != NULL)
+        currentbuild = currentbuild->left;
+    else
+        cout << "There are no more options on the left side." << endl;
+}
+
+void Pages::goRight(){
+    if(currentbuild->right != NULL)
+        currentbuild = currentbuild->right;
+    else
+        cout << "There are no more options on the right side." << endl;
+
+}
+

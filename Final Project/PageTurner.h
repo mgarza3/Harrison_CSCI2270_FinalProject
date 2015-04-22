@@ -6,7 +6,7 @@
 using namespace std;
 
 struct node{
-    string info;
+    string info = "empty";
     node* left = NULL;
     node* right = NULL;
     node* parent = NULL;
@@ -14,10 +14,15 @@ struct node{
 
 class Pages{
     public:
+        Pages();
+        virtual ~Pages();
         void printMain();
         void printBuild();
         void printPlay();
-        void checkPos(node *check);
+        void printCustomGameMenu();
+        void checkPos();
+        void customChoiceA();
+        void customChoiceB();
         void choiceA();
         void choiceB();
         void instruction();
@@ -28,11 +33,15 @@ class Pages{
         void beginBuild();
         void playCustom();
         void printGame();
+        void goLeft();
+        void goRight();
+
     protected:
     private:
         node* origin; //user built root
-        node* current; //current location in tree
+        node* currentbuild; //current location in tree
         node* demoRoot = new node; //root of the prebuilt tree;
+        node* current;
         node* buildLeft(node* parent);
         node* buildRight(node* parent);
 };
