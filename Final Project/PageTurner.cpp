@@ -36,7 +36,7 @@ void Pages::printMain(){
         }
         if(command == "3")
         {
-
+            printCustomGameMenu();
         }
         if(command == "4")
         {
@@ -77,11 +77,11 @@ void Pages::printBuild(){
         }
         if(choice == "3")
         {
-
+            goUp();
         }
         if(choice == "4")
         {
-
+            returnToStart();
         }
         if(choice == "5")
         {
@@ -134,34 +134,79 @@ void Pages::printPlay(){
 }
 
 void Pages::printCustomGameMenu(){
+   cout << "Loaded Custom Game" << endl;
+   if(currentbuild != origin)
+    currentbuild = origin;
 
-    string answer;
-    while(answer != "Quit")
+    string customAnswer;
+    while(customAnswer != "Quit")
     {
-        if(current != NULL)
+        if(currentbuild != NULL)
         {
-            cout << "======Game Menu=====" << endl;
-            cout << "1. Choice A:" << currentbuild->left->info << endl;
-            cout << "2. Choice B:" << currentbuild->right->info << endl;
-            cout << "3. quit" << endl;
-            cin >> answer;
+            if(currentbuild->left != NULL || currentbuild->right != NULL){
+                cout << "======Game Menu=====" << endl;
+                cout << "1. Choice A:" << currentbuild->left->info << endl;
+                cout << "2. Choice B:" << currentbuild->right->info << endl;
+                cout << "3. quit" << endl;
+                cin >> customAnswer;
 
-            if(answer == "1")
-            {
-                choiceA();
+                if(customAnswer == "1")
+                {
+                    customChoiceA();
+                }
+                else if(customAnswer == "2")
+                {
+                    customChoiceB();
+                }
+                else if(customAnswer == "3")
+                {
+                    customAnswer = "Quit";
+                    return;
+                }
             }
-            else if(answer == "2")
+            else if(currentbuild->left != NULL)
             {
-                choiceB();
+                cout << "======Game Menu=====" << endl;
+                cout << "1. Choice A:" << currentbuild->left->info << endl;
+                cout << "2. quit" << endl;
+                cin >> customAnswer;
+
+                if(customAnswer == "1")
+                {
+                    customChoiceA();
+                }
+                else if(customAnswer == "2")
+                {
+                    customAnswer = "Quit";
+                    return;
+                }
             }
-            else if(answer == "3")
+             else if(currentbuild->right != NULL)
             {
-                answer = "Quit";
-                return;
+                cout << "======Game Menu=====" << endl;
+                cout << "1. Choice A:" << currentbuild->right->info << endl;
+                cout << "2. quit" << endl;
+                cin >> customAnswer;
+
+                if(customAnswer == "1")
+                {
+                    customChoiceA();
+                }
+                else if(customAnswer == "2")
+                {
+                    customAnswer = "Quit";
+                    return;
+                }
+            }
+            else
+            {
+                cout << currentbuild->info << endl;
+               return;
             }
         }
+        else
+            return;
     }
-
 }
 
 void Pages::customChoiceA(){
@@ -188,6 +233,18 @@ void Pages::checkPos(){
     if(currentbuild == NULL)
         return;
     cout<<"Current Location:"<<currentbuild->info<<endl;
+    if(currentbuild == origin)
+    {
+        if(currentbuild->left != NULL)
+            cout<<"Option A is:"<<current->left->info<<endl;
+        else
+            cout<<"There is no option A."<<endl;
+        if(currentbuild->right != NULL)
+            cout<<"Option B is:"<<currentbuild->right->info<<endl;
+        else
+            cout<<"There is no option B."<<endl;
+        return;
+    }
     if(currentbuild->parent != NULL)
         cout<<"One level up is:"<<currentbuild->parent->info<<endl;
     else{
@@ -314,7 +371,7 @@ void Pages::buildRight(){
     currentbuild->right = New;
 }
 
-void returnMain();
+//void returnMain();
 
 void Pages::playPrebuild(){
     //cout << "WELCOME";
@@ -388,7 +445,8 @@ void Pages::playPrebuild(){
 void beginBuild();
 
 void Pages::playCustom(){
-
+    cout << "Loaded Custom Game" << endl;
+    printCustomGameMenu();
 }
 
 void printGame();
@@ -408,3 +466,17 @@ void Pages::goRight(){
 
 }
 
+void Pages::goUp(){
+    if(currentbuild != origin)
+        currentbuild = currentbuild->parent;
+    else
+        cout << "You are at the origin of the story" << endl;
+}
+
+void Pages::returnToStart()
+{
+    if(currentbuild != origin)
+        currentbuild = origin;
+    else
+        cout << "You are at the origin of the story" << endl;
+}

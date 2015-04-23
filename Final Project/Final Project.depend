@@ -12,3 +12,16 @@
 	<sstream>
 	<fstream>
 
+1429748609 source:/home/user/Dropbox/CSCI 2270/Harrison_CSCI2270_FinalProject/Final Project/FinalProject.cpp
+	<iostream>
+	"PageTurner.h"
+
+1429758985 /home/user/Dropbox/CSCI 2270/Harrison_CSCI2270_FinalProject/Final Project/PageTurner.h
+	<iostream>
+
+1429759292 source:/home/user/Dropbox/CSCI 2270/Harrison_CSCI2270_FinalProject/Final Project/PageTurner.cpp
+	"PageTurner.h"
+	<iostream>
+	<sstream>
+	<fstream>
+

@@ -35,6 +35,10 @@ class Pages{
         void printGame();
         void goLeft();
         void goRight();
+        void goUp();
+        void returnToStart();
+
+
 
     protected:
     private:
