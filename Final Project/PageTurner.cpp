@@ -261,8 +261,9 @@ void Pages::checkPos(){
 }
 
 void Pages::choiceA(){
-    if(current->left != NULL)
-        current = current->left;
+    //I think we are going to have to make a seperate left and right for the custom and the pre build and keep track of that in the menu, i'm thinking a boolean....also we have like three different lefts and rights.....
+    if(currentbuild->left != NULL)
+        currentbuild = currentbuild->left;
     else
     {
         cout << "GAME OVER!" << endl;
@@ -271,8 +272,8 @@ void Pages::choiceA(){
 }
 
 void Pages::choiceB(){
-    if(current->right !=NULL)
-        current = current->right;
+    if(currentbuild->right !=NULL)
+        currentbuild = currentbuild->right;
     else{
         cout << "GAME OVER!" << endl;
         printMain();

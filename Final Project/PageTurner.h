@@ -37,6 +37,8 @@ class Pages{
         void goRight();
         void goUp();
         void returnToStart();
+        //void preright();
+        //void preleft();
 
 
 

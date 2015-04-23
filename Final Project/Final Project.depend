@@ -25,3 +25,16 @@
 	<sstream>
 	<fstream>
 
+1429821223 source:/home/s/seha4787/Desktop/Harrison_CSCI2270_FinalProject/Final Project/FinalProject.cpp
+	<iostream>
+	"PageTurner.h"
+
+1429821223 /home/s/seha4787/Desktop/Harrison_CSCI2270_FinalProject/Final Project/PageTurner.h
+	<iostream>
+
+1429821223 source:/home/s/seha4787/Desktop/Harrison_CSCI2270_FinalProject/Final Project/PageTurner.cpp
+	"PageTurner.h"
+	<iostream>
+	<sstream>
+	<fstream>
+
