@@ -110,25 +110,41 @@ void Pages::printPlay(){
     {
         if(current != NULL)
         {
-            cout << "======Game Menu=====" << endl;
-            cout << "1. Choice A:" << current->left->info << endl;
-            cout << "2. Choice B:" << current->right->info << endl;
-            cout << "3. quit" << endl;
-            cin >> response;
+            if(current->left != NULL && current->right != NULL){
 
-            if(response == "1")
-            {
-                choiceA();
+                cout << "======Game Menu=====" << endl;
+                cout << "1. Choice A:" << current->left->info << endl;
+                cout << "2. Choice B:" << current->right->info << endl;
+                cout << "3. quit" << endl;
+                cin >> response;
+
+                if(response == "1")
+                {
+                    choiceA();
+                }
+                else if(response == "2")
+                {
+                    choiceB();
+                }
+                else if(response == "3")
+                {
+                    response = "Quit";
+                    return;
+                }
             }
-            else if(response == "2")
+            else if(current->info == "Enter a nearby cave")
             {
-                choiceB();
-            }
-            else if(response == "3")
-            {
-                response = "Quit";
+                cout << "Congratulations you have found the treasure and are a real winner!" << endl;
+                current = demoRoot;
                 return;
             }
+            else{
+                cout << "GAME OVER" << endl;
+                return;
+            }
+        }
+        else{
+            return;
         }
     }
 }
@@ -143,7 +159,8 @@ void Pages::printCustomGameMenu(){
     {
         if(currentbuild != NULL)
         {
-            if(currentbuild->left != NULL || currentbuild->right != NULL){
+            if(currentbuild->left != NULL && currentbuild->right != NULL){
+                cout << current->info << endl;
                 cout << "======Game Menu=====" << endl;
                 cout << "1. Choice A:" << currentbuild->left->info << endl;
                 cout << "2. Choice B:" << currentbuild->right->info << endl;
@@ -235,8 +252,9 @@ void Pages::checkPos(){
     cout<<"Current Location:"<<currentbuild->info<<endl;
     if(currentbuild == origin)
     {
+        cout << "Origin" << endl;
         if(currentbuild->left != NULL)
-            cout<<"Option A is:"<<current->left->info<<endl;
+            cout<<"Option A is:"<<currentbuild->left->info<<endl;
         else
             cout<<"There is no option A."<<endl;
         if(currentbuild->right != NULL)
@@ -251,7 +269,7 @@ void Pages::checkPos(){
         cout<<"You are at the origin of the story"<<endl;
     }
     if(currentbuild->left != NULL)
-        cout<<"Option A is:"<<current->left->info<<endl;
+        cout<<"Option A is:"<<currentbuild->left->info<<endl;
     else
         cout<<"There is no option A."<<endl;
     if(currentbuild->right != NULL)
@@ -261,9 +279,9 @@ void Pages::checkPos(){
 }
 
 void Pages::choiceA(){
-    //I think we are going to have to make a seperate left and right for the custom and the pre build and keep track of that in the menu, i'm thinking a boolean....also we have like three different lefts and rights.....
-    if(currentbuild->left != NULL)
-        currentbuild = currentbuild->left;
+    if(current->left != NULL){
+        current = current->left;
+    }
     else
     {
         cout << "GAME OVER!" << endl;
@@ -272,8 +290,8 @@ void Pages::choiceA(){
 }
 
 void Pages::choiceB(){
-    if(currentbuild->right !=NULL)
-        currentbuild = currentbuild->right;
+    if(current->right !=NULL)
+        current = current->right;
     else{
         cout << "GAME OVER!" << endl;
         printMain();
