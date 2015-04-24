@@ -160,7 +160,7 @@ void Pages::printCustomGameMenu(){
         if(currentbuild != NULL)
         {
             if(currentbuild->left != NULL && currentbuild->right != NULL){
-                cout << current->info << endl;
+                cout << currentbuild->info << endl;
                 cout << "======Game Menu=====" << endl;
                 cout << "1. Choice A:" << currentbuild->left->info << endl;
                 cout << "2. Choice B:" << currentbuild->right->info << endl;
@@ -218,7 +218,8 @@ void Pages::printCustomGameMenu(){
             else
             {
                 cout << currentbuild->info << endl;
-               return;
+                cout<<"GAME OVER!!!"<<endl;
+                return;
             }
         }
         else
@@ -492,8 +493,7 @@ void Pages::goUp(){
         cout << "You are at the origin of the story" << endl;
 }
 
-void Pages::returnToStart()
-{
+void Pages::returnToStart(){
     if(currentbuild != origin)
         currentbuild = origin;
     else
