@@ -5,8 +5,7 @@ using namespace std;
 
 int main()
 {
-    Pages P;
-    P.printMain();
-    //cout << "Hello world!" << endl;
+    Pages P;//initialize class
+    P.printMain(); //begin playing the game!
     return 0;
 }

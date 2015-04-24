@@ -6,6 +6,7 @@
 using namespace std;
 
 Pages::Pages(){
+    //initialize all class pointers
     origin = NULL;
     currentbuild = origin;
     current = demoRoot;
@@ -17,6 +18,12 @@ Pages::~Pages(){
 
 void Pages::printMain(){
     string command;
+    cout<<"WELCOME TO PAGETURNER (patent pending)"<<endl;
+    cout<<"             Please enjoy"<<endl;
+    cout<<""<<endl;
+    cout<<""<<endl;
+    cout<<""<<endl;
+    cout<<""<<endl;
     while(command != "Quit")
     {
         cout << "======Main Menu=====" << endl;
@@ -51,6 +58,7 @@ void Pages::printBuild(){
     string choice;
     while(choice != "Quit")
     {
+        bover = false;
         cout << "======Build Menu=====" << endl;
         cout << "0. Instructions" << endl;
         cout << "1. Go Left" << endl;
@@ -365,6 +373,12 @@ void Pages::buildLeft(){
     }
     else if(currentbuild->left != NULL){
         cout<<"An option already exists here"<<endl;
+        cout<<"Would you like to overwrite? (y/n)"<<endl;
+        overwrite();
+        if(bover == true){
+            New->parent = currentbuild;
+            currentbuild->left = New;
+        }
         return;
     }
     New->parent = currentbuild;
@@ -385,6 +399,12 @@ void Pages::buildRight(){
     }
     else if(currentbuild->right != NULL){
         cout<<"An option already exists here"<<endl;
+        cout<<"Would you like to overwrite? (y/n)"<<endl;
+        overwrite();
+        if(bover == true){
+            New->parent = currentbuild;
+            currentbuild->left = New;
+        }
         return;
     }
     New->parent = currentbuild;
@@ -469,7 +489,9 @@ void Pages::playCustom(){
     printCustomGameMenu();
 }
 
-void printGame();
+void Pages::printGame(){
+    // add in a method for BFTraversal of the tree in order to print it and format it correctly
+}
 
 void Pages::goLeft(){
     if(currentbuild->left != NULL)
@@ -498,4 +520,12 @@ void Pages::returnToStart(){
         currentbuild = origin;
     else
         cout << "You are at the origin of the story" << endl;
+}
+
+void Pages::overwrite(){
+    string answer;
+    cin >> answer;
+    if(answer == "y")
+        bover = true;
+    return;
 }
