@@ -2,6 +2,8 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -69,6 +71,7 @@ void Pages::printBuild(){
         cout << "6. Build Right" << endl;
         cout << "7. Check Current Position" << endl;
         cout << "8. Return to Main Menu" << endl;
+        cout << "9. Print Game to text file" <<endl;
         cin >> choice;
 
         if(choice == "0")
@@ -106,6 +109,9 @@ void Pages::printBuild(){
         if(choice == "8")
         {
             return;
+        }
+        if(choice == "9"){
+            printGame();
         }
     }
 }
@@ -236,73 +242,99 @@ void Pages::printCustomGameMenu(){
 }
 
 void Pages::customChoiceA(){
+    //make sure that not at bottom of the tree before going there
     if(currentbuild->left != NULL)
         currentbuild = currentbuild->left;
     else
     {
+        //the game is over, at the bottom of the tree
         cout << "GAME OVER!" << endl;
+        //return to the main menu
         printMain();
     }
 }
 
 void Pages::customChoiceB(){
+    //make sure that not at bottom of the tree before going there
     if(currentbuild->right != NULL)
         currentbuild = currentbuild->right;
     else
     {
+        //the game is over, at the bottom of the tree
         cout << "GAME OVER!" << endl;
+        //return to the main menu
         printMain();
     }
 }
 
 void Pages::checkPos(){
-    if(currentbuild == NULL)
+    //make sure something has been build before running the check position function
+    if(currentbuild == NULL){
         return;
+    }
+    //print out where currently at
     cout<<"Current Location:"<<currentbuild->info<<endl;
+    //check to see if at the origin to not print out the parent pointer
     if(currentbuild == origin)
     {
         cout << "Origin" << endl;
+        //check which children actually exist
         if(currentbuild->left != NULL)
             cout<<"Option A is:"<<currentbuild->left->info<<endl;
+
         else
             cout<<"There is no option A."<<endl;
+
         if(currentbuild->right != NULL)
             cout<<"Option B is:"<<currentbuild->right->info<<endl;
+
         else
             cout<<"There is no option B."<<endl;
         return;
     }
+
     if(currentbuild->parent != NULL)
         cout<<"One level up is:"<<currentbuild->parent->info<<endl;
+
     else{
         cout<<"You are at the origin of the story"<<endl;
     }
+
     if(currentbuild->left != NULL)
         cout<<"Option A is:"<<currentbuild->left->info<<endl;
+
     else
         cout<<"There is no option A."<<endl;
+
     if(currentbuild->right != NULL)
         cout<<"Option B is:"<<currentbuild->right->info<<endl;
+
     else
         cout<<"There is no option B."<<endl;
 }
 
 void Pages::choiceA(){
+    //make sure that not at bottom of the tree before going there
     if(current->left != NULL){
         current = current->left;
     }
     else
     {
+        //let player know the game is over
         cout << "GAME OVER!" << endl;
+        //return to main menu
         printMain();
     }
 }
 
 void Pages::choiceB(){
+    //make sure that not at bottom of the tree before going there
     if(current->right !=NULL)
         current = current->right;
     else{
+        //let player know the game is over
         cout << "GAME OVER!" << endl;
+        //return to main menu
         printMain();
     }
 }
@@ -321,7 +353,8 @@ void Pages::instruction(){
         cout << "5. Explain: Build Left" << endl;
         cout << "6. Explain: Build Right" << endl;
         cout << "7. Explain: Check Current Position" << endl;
-        cout << "8. Return to Build Menu" << endl;
+        cout << "8. Explain: Print Game to text file" <<endl;
+        cout << "9. Return to Build Menu" << endl;
         cin >> helpChoice;
 
         if(helpChoice == "1")
@@ -354,6 +387,10 @@ void Pages::instruction(){
         }
         if(helpChoice == "8")
         {
+            cout << "\n8. Print Game to text file\nThis option exports the content of the custom game to a text file named PageTurner.txt.\n" << endl;
+        }
+        if(helpChoice == "9")
+        {
             return;
         }
     }
@@ -361,19 +398,26 @@ void Pages::instruction(){
 
 void Pages::buildLeft(){
     cout<<"Enter choice for option A:"<<endl;
+    //bring in the text for the option
     string data;
     cin.ignore(1000, '\n');
     getline(cin, data);
+    //initiate a new node for the new option
     node* New = new node;
+    //put the info in the new node
     New->info = data;
+    //check to see if the origin has been built or not yet
     if(currentbuild == origin && origin == NULL){
+        //set the origin to the new node
         origin = New;
         currentbuild = New;
         return;
     }
+    //check to see if something is already in the build position
     else if(currentbuild->left != NULL){
         cout<<"An option already exists here"<<endl;
         cout<<"Would you like to overwrite? (y/n)"<<endl;
+        //give the user the option to overwrite if they want to
         overwrite();
         if(bover == true){
             New->parent = currentbuild;
@@ -381,25 +425,33 @@ void Pages::buildLeft(){
         }
         return;
     }
+    //put the new node in place
     New->parent = currentbuild;
     currentbuild->left = New;
 }
 
 void Pages::buildRight(){
     cout<<"Enter choice for option B:"<<endl;
+    //bring in the text for the option
     string data;
     cin.ignore(1000, '\n');
     getline(cin, data);
+    //initiate a new node for the new option
     node* New = new node;
+    //put the info in the new node
     New->info = data;
+    //check to see if the origin has been built or not yet
     if(currentbuild == origin && origin == NULL){
+        //set the origin to the new nod
         origin = New;
         currentbuild = New;
         return;
     }
+    //check to see if something is already in the build position
     else if(currentbuild->right != NULL){
         cout<<"An option already exists here"<<endl;
         cout<<"Would you like to overwrite? (y/n)"<<endl;
+        //give the user the option to overwrite if they want to
         overwrite();
         if(bover == true){
             New->parent = currentbuild;
@@ -407,6 +459,7 @@ void Pages::buildRight(){
         }
         return;
     }
+    //put the new node in place
     New->parent = currentbuild;
     currentbuild->right = New;
 }
@@ -415,6 +468,9 @@ void Pages::buildRight(){
 
 void Pages::playPrebuild(){
     //cout << "WELCOME";
+
+    //INITIATE THE PREBUILT GAME
+
     node * root = new node;
     root->info = "Welcome to Win or don't Win! Your goal is to find the treasure! Choose a path!";
     demoRoot = root;
@@ -485,15 +541,42 @@ void Pages::playPrebuild(){
 void beginBuild();
 
 void Pages::playCustom(){
+    //being the custom game play
     cout << "Loaded Custom Game" << endl;
     printCustomGameMenu();
 }
 
 void Pages::printGame(){
-    // add in a method for BFTraversal of the tree in order to print it and format it correctly
+    //CURRENTLY SEG FAULTS
+    //make two temp variables
+    node* temp = origin;
+    node* v;
+    //initiate the queue
+    queue<node*> bfq;
+    //add the origin tot he queue
+    bfq.push(temp);
+
+    while (!bfq.empty()) {
+        v = bfq.front(); //assign the front value of the queue to v
+        //maybe make this a json type deal, or just to straight text, we can talk about it
+        cout<<v->info<<endl;//v->level<<endl;
+        //pop off the head of the queue
+        bfq.pop();
+        //check for a left child
+        if(temp->left != NULL){
+            //add to the queue
+            bfq.push(v->left);
+        }
+        //check for a right child
+        if(v->right != NULL){
+            //add to the queue
+            bfq.push(v->right);
+        }
+    }
 }
 
 void Pages::goLeft(){
+    //make sure that not at bottom of the tree before going there
     if(currentbuild->left != NULL)
         currentbuild = currentbuild->left;
     else
@@ -501,6 +584,7 @@ void Pages::goLeft(){
 }
 
 void Pages::goRight(){
+    //make sure that not at bottom of the tree before going there
     if(currentbuild->right != NULL)
         currentbuild = currentbuild->right;
     else
@@ -509,6 +593,7 @@ void Pages::goRight(){
 }
 
 void Pages::goUp(){
+    //make sure a parent pointer exists
     if(currentbuild != origin)
         currentbuild = currentbuild->parent;
     else
@@ -516,16 +601,23 @@ void Pages::goUp(){
 }
 
 void Pages::returnToStart(){
-    if(currentbuild != origin)
+    //make sure not already at the origin
+    if(currentbuild != origin){
+        //if not go there
         currentbuild = origin;
+    }
     else
         cout << "You are at the origin of the story" << endl;
 }
 
 void Pages::overwrite(){
+    //bring in option from user
     string answer;
     cin >> answer;
-    if(answer == "y")
+    //check to see if user wants to overwrite
+    if(answer == "y"){
+        //set boolean to allow overwriting
         bover = true;
+    }
     return;
 }
