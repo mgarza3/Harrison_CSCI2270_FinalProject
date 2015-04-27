@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <queue>
+#include <json/json.h>
 
 using namespace std;
 
@@ -547,10 +548,10 @@ void Pages::playCustom(){
 }
 
 void Pages::printGame(){
-    //CURRENTLY SEG FAULTS
     //make two temp variables
     node* temp = origin;
     node* v;
+    json_object *addOutput = json_object_new_array();
     //initiate the queue
     queue<node*> bfq;
     //add the origin tot he queue
@@ -559,11 +560,16 @@ void Pages::printGame(){
     while (!bfq.empty()) {
         v = bfq.front(); //assign the front value of the queue to v
         //maybe make this a json type deal, or just to straight text, we can talk about it
-        cout<<v->info<<endl;//v->level<<endl;
+        cout<<v->info<<endl;
         //pop off the head of the queue
         bfq.pop();
+
+        json_object *newNode = json_object_new_string(v->info.c_str());
+        //add title to the path list
+        json_object_array_add(addOutput, newNode);
+
         //check for a left child
-        if(temp->left != NULL){
+        if(v->left != NULL){
             //add to the queue
             bfq.push(v->left);
         }
@@ -573,6 +579,19 @@ void Pages::printGame(){
             bfq.push(v->right);
         }
     }
+    json_object *Oper = json_object_new_object();
+
+    json_object *jadd = json_object_new_string("Build");
+
+    json_object_object_add(Oper, "operation", jadd);
+
+    json_object_object_add(Oper, "output", addOutput);
+
+
+    ofstream myfile;
+    myfile.open ("PageTurner.txt");
+    myfile << json_object_to_json_string_ext(Oper, JSON_C_TO_STRING_PRETTY);
+    myfile.close();
 }
 
 void Pages::goLeft(){

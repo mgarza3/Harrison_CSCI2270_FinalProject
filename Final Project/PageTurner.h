@@ -10,7 +10,6 @@ struct node{
     node* left = NULL; //initialize all pointers to NULL for later checking
     node* right = NULL;
     node* parent = NULL;
-    int level = 0;
 };
 
 class Pages{
