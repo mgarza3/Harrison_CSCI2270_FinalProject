@@ -5,9 +5,15 @@ This project is designed to build and then play the page turner type make your o
 
 How	to	Run:
 
+Download and then compile all three files, then run PageTurner.cpp.
+
 Dependencies:
 
+JSON Library required to run.
+
 System	Requirements:
+
+System needs to be able to run C++ .cpp and .h files. 
 
 Group	Members:
 Sean Harrison
