@@ -18,7 +18,6 @@ Pages::Pages(){
 Pages::~Pages(){
 
 }
-
 /*
 Function Prototype:
 void Pages::printMain();
@@ -74,7 +73,6 @@ void Pages::printMain(){
         }
     }
 }
-
 /*
 Function Prototype:
 void Pages::printBuild();
@@ -151,7 +149,6 @@ void Pages::printBuild(){
         }
     }
 }
-
 /*
 Function Prototype:
 void Pages::printPlay();
@@ -217,7 +214,6 @@ void Pages::printPlay(){
         }
     }
 }
-
 /*
 Function Prototype:
 void Pages::printCustomGameMenu();
@@ -238,8 +234,12 @@ Either function customChoiceA or customChoiceB will be called or the program wil
 If user has traversed down their custom tree the function will display the proper end game output.
 */
 void Pages::printCustomGameMenu(){
-   cout << "Loaded Custom Game" << endl;
-   if(currentbuild != origin)
+    if(origin == NULL){
+        cout<<"A custom game has not been built"<<endl;
+        return;
+    }
+    cout << "Loaded Custom Game" << endl;
+    if(currentbuild != origin)
     currentbuild = origin;
 
     string customAnswer;
@@ -314,7 +314,6 @@ void Pages::printCustomGameMenu(){
             return;
     }
 }
-
 /*
 Function Prototype:
 void Pages::customChoiceA();
@@ -345,7 +344,6 @@ void Pages::customChoiceA(){
         printMain();
     }
 }
-
 /*
 Function Prototype:
 void Pages::customChoiceB();
@@ -376,7 +374,6 @@ void Pages::customChoiceB(){
         printMain();
     }
 }
-
 /*
 Function Prototype:
 void Pages::checkPos();
@@ -439,7 +436,6 @@ void Pages::checkPos(){
     else
         cout<<"There is no option B."<<endl;
 }
-
 /*
 Function Prototype:
 void Pages::choiceA();
@@ -470,7 +466,6 @@ void Pages::choiceA(){
         printMain();
     }
 }
-
 /*
 Function Prototype:
 void Pages::choiceB();
@@ -499,7 +494,6 @@ void Pages::choiceB(){
         printMain();
     }
 }
-
 /*
 Function Prototype:
 void Pages::instruction();
@@ -572,7 +566,24 @@ void Pages::instruction(){
         }
     }
 }
+/*
+Function Prototype:
+void Pages::buildLeft();
 
+Function Description:
+This function will build a node as the left child of the currentBuild node
+
+Example:
+BinaryTree classObject
+classObject.buildLeft();
+
+Pre-conditions:
+Program has compiled and valid input is entered.
+
+Post-conditions:
+A node will now exist at the left child of the currentBuild node, with the user provided text as the info for that node.
+The currentBuild node will remain in the same position as when the function was called.
+*/
 void Pages::buildLeft(){
     cout<<"Enter choice for option A:"<<endl;
     //bring in the text for the option
@@ -606,7 +617,24 @@ void Pages::buildLeft(){
     New->parent = currentbuild;
     currentbuild->left = New;
 }
+/*
+Function Prototype:
+void Pages::buildRight();
 
+Function Description:
+This function will build a node as the right child of the currentBuild node
+
+Example:
+BinaryTree classObject
+classObject.buildRight();
+
+Pre-conditions:
+Program has compiled and valid input is entered.
+
+Post-conditions:
+A node will now exist at the right child of the currentBuild node, with the user provided text as the info for that node.
+The currentBuild node will remain in the same position as when the function was called.
+*/
 void Pages::buildRight(){
     cout<<"Enter choice for option B:"<<endl;
     //bring in the text for the option
@@ -640,7 +668,23 @@ void Pages::buildRight(){
     New->parent = currentbuild;
     currentbuild->right = New;
 }
+/*
+Function Prototype:
+void Pages::playPrebuild();
 
+Function Description:
+This function builds the pre-built game in the program for use by the user.
+
+Example:
+BinaryTree classObject
+classObject.playPrebuilt();
+
+Pre-conditions:
+Program has compiled and valid input is entered.
+
+Post-conditions:
+The Pre-built game will have all nodes in it's tree built and the game will be ready to play.
+*/
 void Pages::playPrebuild(){
     //cout << "WELCOME";
 
@@ -712,33 +756,75 @@ void Pages::playPrebuild(){
     printPlay();
 
 }
+/*
+Function Prototype:
+void Pages::playCustom();
 
+Function Description:
+This function checks to make sure a custom game has been built within the project, if it has it calls printCustomGameMenu
+and allows the user to being playing the custom game.
 
+Example:
+BinaryTree classObject
+classObject.playCustom();
+
+Pre-conditions:
+Program has compiled and valid input is entered.
+
+Post-conditions:
+If a custom game exists the game will begin playing, if not the user will be returned to the main menu.
+*/
 void Pages::playCustom(){
     //being the custom game play
+    if(origin == NULL){
+        cout<<"A custom game has not been built."<<endl;
+        return;
+    }
     cout << "Loaded Custom Game" << endl;
     printCustomGameMenu();
 }
+/*
+Function Prototype:
+void Pages::printGame();
 
+Function Description:
+This function prints out the custom game into a text file using JSON
+
+Example:
+BinaryTree classObject
+classObject.printGame();
+
+Pre-conditions:
+Program has compiled and valid input is entered.
+
+Post-conditions:
+A text file called PageTurner.txt will be created with all nodes in the Custom game, if a custom game exits.
+*/
 void Pages::printGame(){
+    //check for custom game
+    if(origin == NULL){
+        cout<<"A custom game has not been built"<<endl;
+        return;
+    }
     //make two temp variables
     node* temp = origin;
     node* v;
+    //initiate JSON array for all nodes in tree
     json_object *addOutput = json_object_new_array();
     //initiate the queue
     queue<node*> bfq;
     //add the origin tot he queue
     bfq.push(temp);
-
+    //use breadth first search to print out all nodes level by level
     while (!bfq.empty()) {
         v = bfq.front(); //assign the front value of the queue to v
         //maybe make this a json type deal, or just to straight text, we can talk about it
         cout<<v->info<<endl;
         //pop off the head of the queue
         bfq.pop();
-
+        //add node info to JSON string
         json_object *newNode = json_object_new_string(v->info.c_str());
-        //add title to the path list
+        //add JSON string with node info to JSON array
         json_object_array_add(addOutput, newNode);
 
         //check for a left child
@@ -752,21 +838,39 @@ void Pages::printGame(){
             bfq.push(v->right);
         }
     }
+    //create JSON object to store everything
     json_object *Oper = json_object_new_object();
-
-    json_object *jadd = json_object_new_string("Build");
-
-    json_object_object_add(Oper, "operation", jadd);
-
+    //string to denote operation
+    json_object *jBuild = json_object_new_string("Build");
+    //add string with operation to object
+    json_object_object_add(Oper, "operation", jBuild);
+    //add array to object
     json_object_object_add(Oper, "output", addOutput);
 
-
+    //output object to text file using string pretty format
     ofstream myfile;
     myfile.open ("PageTurner.txt");
     myfile << json_object_to_json_string_ext(Oper, JSON_C_TO_STRING_PRETTY);
     myfile.close();
 }
+/*
+Function Prototype:
+void Pages::goLeft();
 
+Function Description:
+This function will move the current pointer to its left child if it exist. This is one
+of the functions the user will call to traverse the custom game tree.
+
+Example:
+BinaryTree classObject
+classObject.goLeft();
+
+Pre-conditions:
+User is currently in the Build mode.
+
+Post-conditions:
+Function will move pointer or inform user that they are at the bottom of the tree.
+*/
 void Pages::goLeft(){
     //make sure that not at bottom of the tree before going there
     if(currentbuild->left != NULL)
@@ -774,7 +878,24 @@ void Pages::goLeft(){
     else
         cout << "There are no more options on the left side." << endl;
 }
+/*
+Function Prototype:
+void Pages::goRight();
 
+Function Description:
+This function will move the current pointer to its right child if it exist. This is one
+of the functions the user will call to traverse the custom game tree.
+
+Example:
+BinaryTree classObject
+classObject.goRight();
+
+Pre-conditions:
+User is currently in the Build mode.
+
+Post-conditions:
+Function will move pointer or inform user that they are at the bottom of the tree.
+*/
 void Pages::goRight(){
     //make sure that not at bottom of the tree before going there
     if(currentbuild->right != NULL)
@@ -783,7 +904,24 @@ void Pages::goRight(){
         cout << "There are no more options on the right side." << endl;
 
 }
+/*
+Function Prototype:
+void Pages::goUp();
 
+Function Description:
+This function will move the current pointer to its parent pointer if not at the origin. This is one
+of the functions the user will call to traverse the custom game tree.
+
+Example:
+BinaryTree classObject
+classObject.goUp();
+
+Pre-conditions:
+User is currently in the Build mode.
+
+Post-conditions:
+Function will move pointer or inform user that they are at the origin.
+*/
 void Pages::goUp(){
     //make sure a parent pointer exists
     if(currentbuild != origin)
@@ -791,7 +929,6 @@ void Pages::goUp(){
     else
         cout << "You are at the origin of the story" << endl;
 }
-
 /*
 Function Prototype:
 void Pages::returnToStart();
@@ -817,7 +954,25 @@ void Pages::returnToStart(){
     else
         cout << "You are at the origin of the story" << endl;
 }
+/*
+Function Prototype:
+void Pages::goOverwrite();
 
+Function Description:
+This function allows the user to overwrite the information in a node in the custom game while in build mode.
+
+Example:
+BinaryTree classObject
+classObject.goOverwrite();
+
+Pre-conditions:
+User is calling buildLeft or buildRight, but there is already a node in the desired build position.
+
+Post-conditions:
+If the user enters y they will be able to overwrite the node that buildLeft or buildRight was trying to access.
+If they enter n then the program will return the build function without editing the node that buildLeft or buildRight
+was trying to access.
+*/
 void Pages::overwrite(){
     //bring in option from user
     string answer;
