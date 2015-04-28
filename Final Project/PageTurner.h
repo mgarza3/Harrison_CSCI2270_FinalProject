@@ -28,9 +28,7 @@ class Pages{
         void instruction(); //A function to bring up the list of selectable instructions
         void buildLeft(); //allows for the building of option A in a custom game
         void buildRight(); //allows for the building of option B in a custom game
-        void returnMain(); //function to return to the main menu
         void playPrebuild(); //allows for the playing of the prebuilt game
-        void beginBuild(); //initiates the building of a custom game
         void playCustom(); //initiates the playing of the custom game
         void printGame(); //prints out the game to a text file
         void goLeft(); //allows for movement down one level to the left child in building
