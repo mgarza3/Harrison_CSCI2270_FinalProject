@@ -9,7 +9,7 @@ How	to	Run:
 
 Dependencies:
 
-  JSON Library required to run.
+  JSON library, vector library, queue library all requried to run.
 
 System	Requirements:
 
