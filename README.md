@@ -5,7 +5,7 @@ Project	Summary:
 
 How	to	Run:
 
-  Download and then compile all three files, then run PageTurner.cpp.
+  Download and then compile all three files, then run PageTurner.cpp. You can also downlaod the FinalProectv7"with comments".zip and run the codeblocks project file in your virtual machine.
 
 Dependencies:
 
