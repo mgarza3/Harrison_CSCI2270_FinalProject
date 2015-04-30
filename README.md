@@ -5,7 +5,7 @@ Project	Summary:
 
 How	to	Run:
 
-  Download and then compile all three files, then run PageTurner.cpp. You can also downlaod the FinalProectv7"with comments".zip and run the codeblocks project file in your virtual machine. When you run the program you can press "1" to play the pre-built game as an example. Press "2" to make your own page turner. Note, tree nodes serve as the text that will be displayed so some strategy is needed when building a complex story. Press "3" to play your custom made game. Enjoy!
+  Download and then compile all three files, then run PageTurner.cpp. You can also downlaod the FinalProectv7"with comments".zip located in the final project folder and run the codeblocks project file in your virtual machine once you extract it from the zip file. When you run the program you can press "1" to play the pre-built game as an example. Press "2" to make your own page turner. Note, tree nodes serve as the text that will be displayed so some strategy is needed when building a complex story. Press "3" to play your custom made game. Enjoy!
 
 Dependencies:
 
