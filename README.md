@@ -5,11 +5,11 @@ Project	Summary:
 
 How	to	Run:
 
-  Download and then compile all three files, then run PageTurner.cpp. You can also downlaod the FinalProectv7"with comments".zip and run the codeblocks project file in your virtual machine.
+  Download and then compile all three files, then run PageTurner.cpp. You can also downlaod the FinalProectv7"with comments".zip and run the codeblocks project file in your virtual machine. When you run the program you can press "1" to play the pre-built game as an example. Press "2" to make your own page turner. Note, tree nodes serve as the text that will be displayed so some strategy is needed when building a complex story. Press "3" to play your custom made game. Enjoy!
 
 Dependencies:
 
-  JSON library, vector library, queue library all requried to run.
+  JSON library, vector library, queue library all requried to run. We advize the program is run in CodeBlocks as a CodeBlock project file is provided.
 
 System	Requirements:
 
@@ -21,5 +21,7 @@ Group	Members:
   Blain VanNice
 
 Contributors:
+N/A
 
 Open	issues/bugs:
+No errors or seg faults found so far but please check boundry cases. In the future it would be nice to allow the user to read in other files and create other trees and play other games.
