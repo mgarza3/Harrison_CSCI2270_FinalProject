@@ -21,18 +21,14 @@ Pages::~Pages(){
 /*
 Function Prototype:
 void Pages::printMain();
-
 Function Description:
 This function is the function called in main and calls the first output the user will see.
 Its job is to call the other menus based on the users desire.
-
 Example:
 BinaryTree classObject
 classObject.printMain();
-
 Pre-conditions:
 Program is compiled and run in a c++ IDE. Receives valid input.
-
 Post-conditions:
 New menu will be displayed or it will display the menu again upon invalid input.
 */
@@ -76,21 +72,18 @@ void Pages::printMain(){
 /*
 Function Prototype:
 void Pages::printBuild();
-
 Function Description:
 This function brings up the menu for the user to call other build functions.
-
 Example:
 BinaryTree classObject
 classObject.printBuild();
-
 Pre-conditions:
 Valid function call and valid input.
-
 Post-conditions:
 Other build functions will be called or same menu displayed upon invalid input
 */
 void Pages::printBuild(){
+    bool first_choice=false;
     string choice;
     while(choice != "Quit")
     {
@@ -108,41 +101,53 @@ void Pages::printBuild(){
         cout << "9. Print Game to text file" <<endl;
         cin >> choice;
 
+
         if(choice == "0")
         {
             instruction();
+            first_choice=true;
         }
-        if(choice == "1")
+        if(choice == "1" && first_choice==true)
         {
             goLeft();
         }
-        if(choice == "2")
+        if(choice == "2" && first_choice ==true)
         {
             goRight();
         }
+        if(choice =="2" && first_choice == false)
+            cout<<"There is no option B."<<endl;
+        if(choice =="1" && first_choice ==false)
+            cout<<"There is no option A."<<endl;
         if(choice == "3")
         {
             goUp();
+            first_choice=true;
         }
         if(choice == "4")
         {
             returnToStart();
+            first_choice=true;
         }
         if(choice == "5")
         {
             buildLeft();
+            first_choice=true;
         }
         if(choice == "6")
         {
             buildRight();
+            first_choice=true;
         }
         if(choice == "7")
         {
             checkPos();
+            first_choice=true;
         }
         if(choice == "8")
         {
             return;
+            first_choice =true;
         }
         if(choice == "9"){
             printGame();
@@ -152,18 +157,14 @@ void Pages::printBuild(){
 /*
 Function Prototype:
 void Pages::printPlay();
-
 Function Description:
 This function allows the user to play the pre-built page turner by receiving a user command and calling functions to
 traverse down the pre-built tree based on user input.
-
 Example:
 BinaryTree classObject
 classObject.printPlay();
-
 Pre-conditions:
 User has called playPreBuilt and given a valid input.
-
 Post-conditions:
 Either function ChoiceA or ChoiceB will be called or the program will output the same menu upon invalid input.
 If user has traversed down the pre-built tree the function will display the proper end game output.
@@ -217,18 +218,14 @@ void Pages::printPlay(){
 /*
 Function Prototype:
 void Pages::printCustomGameMenu();
-
 Function Description:
 This function displays a menu for the user to play their custom built game by calling
 the correct functions to move the currentBuild pointer along their custom tree.
-
 Example:
 BinaryTree classObject
 classObject.printCustomGameMenu();
-
 Pre-conditions:
 User has built a tree using the build menu. User enters valid input.
-
 Post-conditions:
 Either function customChoiceA or customChoiceB will be called or the program will output the same menu upon invalid input.
 If user has traversed down their custom tree the function will display the proper end game output.
@@ -317,18 +314,14 @@ void Pages::printCustomGameMenu(){
 /*
 Function Prototype:
 void Pages::customChoiceA();
-
 Function Description:
 This function will move the currentBuild pointer to its left child if it exist. This is one
 of the functions the user will call to traverse along their custom tree.
-
 Example:
 BinaryTree classObject
 classObject.customChoiceA();
-
 Pre-conditions:
 User has built a tree using the build menu.
-
 Post-conditions:
 Function will move pointer or display main menu after outputting end game response if no child exist.
 */
@@ -347,18 +340,14 @@ void Pages::customChoiceA(){
 /*
 Function Prototype:
 void Pages::customChoiceB();
-
 Function Description:
 This function will move the currentBuild pointer to its right child if it exist. This is one
 of the functions the user will call to traverse along their custom tree.
-
 Example:
 BinaryTree classObject
 classObject.customChoiceB();
-
 Pre-conditions:
 User has built a tree using the build menu.
-
 Post-conditions:
 Function will move pointer or display main menu after outputting end game response if no child exist.
 */
@@ -377,18 +366,14 @@ void Pages::customChoiceB(){
 /*
 Function Prototype:
 void Pages::checkPos();
-
 Function Description:
 This function allows the user to check their current position in their custom tree by outputting the information
 of their currentBuild pointer, its parent, and its children.
-
 Example:
 BinaryTree classObject
 classObject.checkPos();
-
 Pre-conditions:
 User has added a node using the build tree menu.
-
 Post-conditions:
 Function will output the users current node information along with its parent's and children's information.*/
 void Pages::checkPos(){
@@ -439,15 +424,12 @@ void Pages::checkPos(){
 /*
 Function Prototype:
 void Pages::choiceA();
-
 Function Description:
 This function will move the current pointer to its left child if it exist. This is one
 of the functions the user will call to traverse along the pre-built tree.
-
 Example:
 BinaryTree classObject
 classObject.choiceA();
-
 Pre-conditions:
 User has called the playPreBuild function.
 Post-conditions:
@@ -469,15 +451,12 @@ void Pages::choiceA(){
 /*
 Function Prototype:
 void Pages::choiceB();
-
 Function Description:
 This function will move the current pointer to its right child if it exist. This is one
 of the functions the user will call to traverse along the pre-built tree.
-
 Example:
 BinaryTree classObject
 classObject.choiceB();
-
 Pre-conditions:
 User has called the playPreBuild function.
 Post-conditions:
@@ -497,14 +476,11 @@ void Pages::choiceB(){
 /*
 Function Prototype:
 void Pages::instruction();
-
 Function Description:
 This function will display a instruction menu that a user can use to learn how to use the build functions.
-
 Example:
 BinaryTree classObject
 classObject.instruction();
-
 Pre-conditions:
 Program has compiled and valid input is entered.
 Post-conditions:
@@ -569,17 +545,13 @@ void Pages::instruction(){
 /*
 Function Prototype:
 void Pages::buildLeft();
-
 Function Description:
 This function will build a node as the left child of the currentBuild node
-
 Example:
 BinaryTree classObject
 classObject.buildLeft();
-
 Pre-conditions:
 Program has compiled and valid input is entered.
-
 Post-conditions:
 A node will now exist at the left child of the currentBuild node, with the user provided text as the info for that node.
 The currentBuild node will remain in the same position as when the function was called.
@@ -620,17 +592,13 @@ void Pages::buildLeft(){
 /*
 Function Prototype:
 void Pages::buildRight();
-
 Function Description:
 This function will build a node as the right child of the currentBuild node
-
 Example:
 BinaryTree classObject
 classObject.buildRight();
-
 Pre-conditions:
 Program has compiled and valid input is entered.
-
 Post-conditions:
 A node will now exist at the right child of the currentBuild node, with the user provided text as the info for that node.
 The currentBuild node will remain in the same position as when the function was called.
@@ -671,17 +639,13 @@ void Pages::buildRight(){
 /*
 Function Prototype:
 void Pages::playPrebuild();
-
 Function Description:
 This function builds the pre-built game in the program for use by the user.
-
 Example:
 BinaryTree classObject
 classObject.playPrebuilt();
-
 Pre-conditions:
 Program has compiled and valid input is entered.
-
 Post-conditions:
 The Pre-built game will have all nodes in it's tree built and the game will be ready to play.
 */
@@ -759,18 +723,14 @@ void Pages::playPrebuild(){
 /*
 Function Prototype:
 void Pages::playCustom();
-
 Function Description:
 This function checks to make sure a custom game has been built within the project, if it has it calls printCustomGameMenu
 and allows the user to being playing the custom game.
-
 Example:
 BinaryTree classObject
 classObject.playCustom();
-
 Pre-conditions:
 Program has compiled and valid input is entered.
-
 Post-conditions:
 If a custom game exists the game will begin playing, if not the user will be returned to the main menu.
 */
@@ -786,17 +746,13 @@ void Pages::playCustom(){
 /*
 Function Prototype:
 void Pages::printGame();
-
 Function Description:
 This function prints out the custom game into a text file using JSON
-
 Example:
 BinaryTree classObject
 classObject.printGame();
-
 Pre-conditions:
 Program has compiled and valid input is entered.
-
 Post-conditions:
 A text file called PageTurner.txt will be created with all nodes in the Custom game, if a custom game exits.
 */
@@ -856,18 +812,14 @@ void Pages::printGame(){
 /*
 Function Prototype:
 void Pages::goLeft();
-
 Function Description:
 This function will move the current pointer to its left child if it exist. This is one
 of the functions the user will call to traverse the custom game tree.
-
 Example:
 BinaryTree classObject
 classObject.goLeft();
-
 Pre-conditions:
 User is currently in the Build mode.
-
 Post-conditions:
 Function will move pointer or inform user that they are at the bottom of the tree.
 */
@@ -881,18 +833,14 @@ void Pages::goLeft(){
 /*
 Function Prototype:
 void Pages::goRight();
-
 Function Description:
 This function will move the current pointer to its right child if it exist. This is one
 of the functions the user will call to traverse the custom game tree.
-
 Example:
 BinaryTree classObject
 classObject.goRight();
-
 Pre-conditions:
 User is currently in the Build mode.
-
 Post-conditions:
 Function will move pointer or inform user that they are at the bottom of the tree.
 */
@@ -907,18 +855,14 @@ void Pages::goRight(){
 /*
 Function Prototype:
 void Pages::goUp();
-
 Function Description:
 This function will move the current pointer to its parent pointer if not at the origin. This is one
 of the functions the user will call to traverse the custom game tree.
-
 Example:
 BinaryTree classObject
 classObject.goUp();
-
 Pre-conditions:
 User is currently in the Build mode.
-
 Post-conditions:
 Function will move pointer or inform user that they are at the origin.
 */
@@ -932,14 +876,11 @@ void Pages::goUp(){
 /*
 Function Prototype:
 void Pages::returnToStart();
-
 Function Description:
 This function moves the currentBuild pointer/user position to the root of their custom built tree (origin).
-
 Example:
 BinaryTree classObject
 classObject.returnToStart();
-
 Pre-conditions:
 User has built a custom tree by at least calling buildLeft() or buildRight().
 Post-conditions:
@@ -957,17 +898,13 @@ void Pages::returnToStart(){
 /*
 Function Prototype:
 void Pages::goOverwrite();
-
 Function Description:
 This function allows the user to overwrite the information in a node in the custom game while in build mode.
-
 Example:
 BinaryTree classObject
 classObject.goOverwrite();
-
 Pre-conditions:
 User is calling buildLeft or buildRight, but there is already a node in the desired build position.
-
 Post-conditions:
 If the user enters y they will be able to overwrite the node that buildLeft or buildRight was trying to access.
 If they enter n then the program will return the build function without editing the node that buildLeft or buildRight
